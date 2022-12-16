@@ -27,18 +27,35 @@ const verify_token = function (req : express.Request, res : express.Response, ne
 
 app.post('/api/data', async (req, res) => {
     const data = req.body
-    await prisma.user.create({
-        data: {
-            name: data.name,
-            email: data.email,
-        }
-    })
-    res.sendStatus(200)
+    try {
+        await prisma.user.create({
+            data: {
+                name: data.name,
+                email: data.email,
+            }
+        })
+        res.sendStatus(200)
+    } catch (e) {
+        res.status(409).send("User already exists")
+    }
 })
 
 app.get('/api/data', verify_token, async (req, res) => {
     const result = await prisma.user.findMany()
     res.json(result)
+})
+
+app.get('/api/data/csv', verify_token, async (req, res) => {
+    res.setHeader('Content-Type', 'text/csv')
+    const users = await prisma.user.findMany()
+    const records = users.map((user) => { return `${user.name},${user.email}` })
+    res.send(records.join("\n"))
+})
+
+app.get('/api/data/rust', verify_token, async (req, res) => {
+    const users = await prisma.user.findMany()
+    const records = users.map((user) => { return `    User::new("${user.name}", "${user.email}"),` })
+    res.send(records.join("\n"))
 })
 
 
