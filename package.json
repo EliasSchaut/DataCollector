@@ -1,0 +1,25 @@
+{
+  "name": "data-collector",
+  "version": "1.0.0",
+  "description": "A fast made website to collect data (name, email) from friends",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EliasSchaut/data-collector.git"
+  },
+  "author": "EliasSchaut",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EliasSchaut/data-collector/issues"
+  },
+  "homepage": "https://github.com/EliasSchaut/data-collector#readme",
+  "dependencies": {
+    "@prisma/client": "^4.7.1",
+    "dotenv": "^16.0.3",
+    "prisma": "^4.7.1"
+  }
+}
